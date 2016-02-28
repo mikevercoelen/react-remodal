@@ -41,19 +41,16 @@ export default function Remodal (
   return class Remodal extends Component {
     static propTypes = {
       children: PropTypes.node.isRequired,
-      className: PropTypes.string,
       isOpen: PropTypes.bool,
       onClose: PropTypes.func,
       overlayClosesModal: PropTypes.bool,
-      closeOnEscape: PropTypes.bool,
-      overlayBackground: PropTypes.string
+      closeOnEscape: PropTypes.bool
     }
 
     static defaultProps = {
       isOpen: false,
       overlayClosesModal: true,
-      closeOnEscape: true,
-      overlayBackground: 'rgba(0, 0, 0, .65)'
+      closeOnEscape: true
     }
 
     listenKeyboard = (event) => {
@@ -111,30 +108,22 @@ export default function Remodal (
     get overlay () {
       const {
         isOpen,
-        overlayClosesModal,
-        overlayBackground
+        overlayClosesModal
       } = this.props
 
       return (isOpen) ? (
         <div
           className={classes.overlay}
           style={{
-            background: overlayBackground,
             cursor: (overlayClosesModal) ? 'pointer' : 'default'
           }} onClick={::this.handleClose} />
       ) : null
     }
 
     render () {
-      const {
-        className,
-        isOpen
-      } = this.props
-
       const props = blacklist(
         this.props,
         'overlayClosesModal',
-        'className',
         'isOpen',
         'onClose',
         'width'
@@ -152,8 +141,7 @@ export default function Remodal (
             onClick={::this.handleClose}
             className={classNames({
               [classes.wrap]: true,
-              [classes.wrapIsOpen]: isOpen,
-              [className]: className
+              [classes.wrapIsOpen]: this.props.isOpen
             })}
             transitionEnterTimeout={transitions.dialogEnterTimeout}
             transitionLeaveTimeout={transitions.dialogLeaveTimeout}
