@@ -1,8 +1,38 @@
+.button {
+  margin: 0;
+  padding: 1em;
+  border: 0;
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 1px;
+  outline: 0;
+}
+
+.button:hover {
+  background-color: #e53f2e;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 1em;
+}
+
+.content {
+  margin-top: 4em;
+  margin-bottom: 4em;
+}
+
 body {
   font-family: 'Roboto', open-sans;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  color: rgba(0, 0, 0, 0.8);
+  overflow-y: scroll;
 }
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -400,7 +430,24 @@ th {
   padding: 0;
 }
 
-.wrap {
+.top {
+  padding: 8em 0;
+  background-color: whitesmoke;
+}
+
+.top h1 {
+  line-height: 1;
+  padding: 0;
+  font-size: 92px;
+  font-weight: 300;
+  margin: 0;
+}
+
+.top__description {
+  font-size: 22px;
+}
+
+.react-remodal__wrap {
   position: fixed;
   top: 0;
   right: 0;
@@ -412,16 +459,16 @@ th {
   padding: 1em 1em 0;
   visibility: hidden;
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   cursor: pointer;
   -webkit-perspective: 1400px;
-          perspective: 1400px;
+  perspective: 1400px;
   -webkit-perspective-origin: 50% 50%;
-          perspective-origin: 50% 50%;
+  perspective-origin: 50% 50%;
   -webkit-overflow-scrolling: touch;
 }
 
-.wrap:after {
+.react-remodal__wrap:after {
   vertical-align: middle;
   display: inline-block;
   height: 100%;
@@ -429,96 +476,92 @@ th {
   content: '';
 }
 
-.isOpen {
+.react-remodal__wrap--is-open {
   visibility: visible;
 }
 
-.dialog {
+.react-remodal__dialog {
   position: relative;
   outline: 0;
   width: 100%;
   margin-bottom: 1em;
   padding: 1em;
   -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   background: #fff;
   display: inline-block;
   vertical-align: middle;
   box-sizing: border-box;
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-          text-size-adjust: 100%;
-  cursor: default;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-@media (min-width: 768px) {
-  .dialog--small {
-    width: 320px;
-  }
-  .dialog--medium {
-    width: 640px;
-  }
-  .dialog--large {
-    width: 960px;
+@media only screen and (min-width: 641px) {
+  .react-remodal__dialog {
+    max-width: 700px;
   }
 }
 
-.dialogEnter {
+.react-remodal__dialog--enter {
   -webkit-transform: scale(1.05);
-          transform: scale(1.05);
+  transform: scale(1.05);
   opacity: 0;
 }
 
-.dialogEnterActive {
+.react-remodal__dialog--enter-active {
   -webkit-transform: none;
-          transform: none;
+  transform: none;
   opacity: 1;
   transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
   transition: opacity 300ms ease-in, transform 300ms ease-in;
   transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
 }
 
-.dialogLeave {
+.react-remodal__dialog--leave {
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
   opacity: 1;
 }
 
-.dialogLeaveActive {
+.react-remodal__dialog--leave-active {
   -webkit-transform: scale(0.95);
-          transform: scale(0.95);
+  transform: scale(0.95);
   opacity: 0;
   transition: opacity 300ms ease-in, -webkit-transform 300ms ease-in;
   transition: opacity 300ms ease-in, transform 300ms ease-in;
   transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
 }
 
-.overlay {
+.react-remodal__overlay {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.85);
   height: 100%;
   width: 100%;
   z-index: 9999;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
-.overlayEnter {
+.react-remodal__overlay--enter {
   opacity: 0;
 }
 
-.overlayEnterActive {
+.react-remodal__overlay--enter-active {
   opacity: 1;
   transition: opacity 300ms;
 }
 
-.overlayLeave {
+.react-remodal__overlay--leave {
   opacity: 1;
 }
 
-.overlayLeaveActive {
+.react-remodal__overlay--leave-active {
   opacity: 0;
   transition: opacity 300ms;
 }

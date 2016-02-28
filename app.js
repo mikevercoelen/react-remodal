@@ -76,7 +76,7 @@ var App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', null, _react2.default.createElement('button', { onClick: this.toggleModal.bind(this) }, 'Open modal'), _react2.default.createElement(Remodal, { isOpen: this.state.isModalOpen, onClose: this.toggleModal.bind(this), overlayClosesModal: true }, _react2.default.createElement('p', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')));
+      return _react2.default.createElement('div', { className: 'app' }, _react2.default.createElement('div', { className: 'top' }, _react2.default.createElement('div', { className: 'container' }, _react2.default.createElement('h1', null, 'React Remodal'), _react2.default.createElement('p', { className: 'top__description' }, 'A beautiful, simple modal for React.'), _react2.default.createElement('a', { href: 'https://github.com/tomgrooffer/react-remodal' }, 'See documentation / github'))), _react2.default.createElement('div', { className: 'content container' }, _react2.default.createElement('div', { className: 'example' }, _react2.default.createElement('button', { className: 'button', onClick: this.toggleModal.bind(this) }, 'Open modal'), _react2.default.createElement(Remodal, { isOpen: this.state.isModalOpen, onClose: this.toggleModal.bind(this) }, _react2.default.createElement('h1', null, 'Lorem ipsum dolor sit amet.'), _react2.default.createElement('p', null, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')))));
     }
   }]);
 
@@ -20256,40 +20256,68 @@ function _inherits(subClass, superClass) {
 }
 
 var defaultClasses = {
-  'dialog': 'dialog',
-  'dialog--large': 'dialog--large',
-  'dialog--medium': 'dialog--medium',
-  'dialog--small': 'dialog--small',
-  'dialogEnter': 'dialogEnter',
-  'dialogEnterActive': 'dialogEnterActive',
-  'dialogLeave': 'dialogLeave',
-  'dialogLeaveActive': 'dialogLeaveActive',
-  'overlayEnter': 'overlayEnter',
-  'overlayEnterActive': 'overlayEnterActive',
-  'overlayLeave': 'overlayLeave',
-  'overlayLeaveActive': 'overlayLeaveActive',
-  'wrap': 'wrap',
-  'isOpen': 'isOpen',
-  'overlay': 'overlay'
+  'dialog': 'react-remodal__dialog',
+  'dialogEnter': 'react-remodal__dialog--enter',
+  'dialogEnterActive': 'react-remodal__dialog--enter-active',
+  'dialogLeave': 'react-remodal__dialog--leave',
+  'dialogLeaveActive': 'react-remodal__dialog--leave-active',
+  'overlay': 'react-remodal__overlay',
+  'overlayEnter': 'react-remodal__overlay--enter',
+  'overlayEnterActive': 'react-remodal__overlay--enter-active',
+  'overlayLeave': 'react-remodal__overlay--leave',
+  'overlayLeaveActive': 'react-remodal__overlay--leave-active',
+  'wrap': 'react-remodal__wrap',
+  'wrapIsOpen': 'react-remodal__wrap--is-open'
+};
+
+var defaultTransitions = {
+  dialogEnterTimeout: 300,
+  dialogLeaveTimeout: 300,
+  overlayEnterTimeout: 300,
+  overlayLeaveTimeout: 300
 };
 
 function Remodal() {
-  var _class, _temp;
+  var _class, _temp2;
 
-  var classes = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-  classes = _extends({}, defaultClasses, classes);
+  var classes = _extends({}, defaultClasses, options.classes);
 
-  return _temp = _class = function (_Component) {
+  var transitions = _extends({}, defaultTransitions);
+
+  return _temp2 = _class = function (_Component) {
     _inherits(Remodal, _Component);
 
     function Remodal() {
+      var _Object$getPrototypeO;
+
+      var _temp, _this, _ret;
+
       _classCallCheck(this, Remodal);
 
-      return _possibleConstructorReturn(this, Object.getPrototypeOf(Remodal).apply(this, arguments));
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Remodal)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.listenKeyboard = function (event) {
+        if (_this.props.closeOnEscape && (event.key === 'Escape' || event.keyCode === 27)) {
+          _this.props.onClose();
+        }
+      }, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(Remodal, [{
+      key: 'componentDidMount',
+      value: function componentDidMount() {
+        window.addEventListener('keydown', this.listenKeyboard, true);
+      }
+    }, {
+      key: 'componentWillUnmount',
+      value: function componentWillUnmount() {
+        window.removeEventListener('keydown', this.listenKeyboard, true);
+      }
+    }, {
       key: 'componentWillReceiveProps',
       value: function componentWillReceiveProps(nextProps) {
         if (!this.props.isOpen && nextProps.isOpen) {
@@ -20329,9 +20357,9 @@ function Remodal() {
             leaveActive: classes.dialogLeaveActive
           },
           onClick: this.handleClose.bind(this),
-          className: (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, classes.wrap, true), _defineProperty(_classNames, classes.isOpen, isOpen), _defineProperty(_classNames, className, className), _classNames)),
-          transitionEnterTimeout: 300,
-          transitionLeaveTimeout: 300,
+          className: (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, classes.wrap, true), _defineProperty(_classNames, classes.wrapIsOpen, isOpen), _defineProperty(_classNames, className, className), _classNames)),
+          transitionEnterTimeout: transitions.dialogEnterTimeout,
+          transitionLeaveTimeout: transitions.dialogLeaveTimeout,
           component: 'div' }), this.dialog), _react2.default.createElement(_TransitionPortal2.default, {
           transitionName: {
             enter: classes.overlayEnter,
@@ -20339,23 +20367,40 @@ function Remodal() {
             leave: classes.overlayLeave,
             leaveActive: classes.overlayLeaveActive
           },
-          transitionEnterTimeout: 300,
-          transitionLeaveTimeout: 300,
+          transitionEnterTimeout: transitions.overlayEnterTimeout,
+          transitionLeaveTimeout: transitions.overlayLeaveTimeout,
           component: 'div' }, this.overlay));
       }
     }, {
       key: 'dialog',
       get: function get() {
-        var _classNames2;
+        var _props2 = this.props;
+        var isOpen = _props2.isOpen;
+        var children = _props2.children;
 
-        return this.props.isOpen ? _react2.default.createElement('div', {
+        return isOpen ? _react2.default.createElement('div', {
+          style: {
+            // overlay has pointer, set to default
+            // else dialog has pointer too.
+            cursor: 'default'
+          },
           onClick: this.handleDialogClick.bind(this),
-          className: (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, classes.dialog, true), _defineProperty(_classNames2, classes['dialog--' + this.props.width], true), _classNames2)) }, this.props.children) : null;
+          className: classes.dialog }, children) : null;
       }
     }, {
       key: 'overlay',
       get: function get() {
-        return this.props.isOpen ? _react2.default.createElement('div', { className: classes.overlay, onClick: this.handleClose.bind(this) }) : null;
+        var _props3 = this.props;
+        var isOpen = _props3.isOpen;
+        var overlayClosesModal = _props3.overlayClosesModal;
+        var overlayBackground = _props3.overlayBackground;
+
+        return isOpen ? _react2.default.createElement('div', {
+          className: classes.overlay,
+          style: {
+            background: overlayBackground,
+            cursor: overlayClosesModal ? 'pointer' : 'default'
+          }, onClick: this.handleClose.bind(this) }) : null;
       }
     }]);
 
@@ -20366,12 +20411,14 @@ function Remodal() {
     isOpen: _react.PropTypes.bool,
     onClose: _react.PropTypes.func,
     overlayClosesModal: _react.PropTypes.bool,
-    width: _react.PropTypes.oneOf(['small', 'medium', 'large'])
+    closeOnEscape: _react.PropTypes.bool,
+    overlayBackground: _react.PropTypes.string
   }, _class.defaultProps = {
-    width: 'medium',
     isOpen: false,
-    overlayClosesModal: false
-  }, _temp;
+    overlayClosesModal: true,
+    closeOnEscape: true,
+    overlayBackground: 'rgba(0, 0, 0, .65)'
+  }, _temp2;
 }
 module.exports = exports['default'];
 
@@ -20436,7 +20483,6 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-// const scrollbarWidth = getScrollbarWidth()
 var IS_IOS = /iPad|iPhone|iPod/.test(navigator.platform);
 
 function lock() {
@@ -20444,8 +20490,10 @@ function lock() {
     return;
   }
 
+  console.log(document.body.style.overflow);
+
   var paddingRight = (0, _scrollbarWidth2.default)(true);
-  document.body.setAttribute('style', 'overflow: hidden; touch-action: none; padding-right: ' + paddingRight + 'px;');
+  document.body.setAttribute('style', '\n    overflow: hidden;\n    -ms-touch-action: none;\n    touch-action: none;\n    padding-right: ' + paddingRight + 'px;\n  ');
 }
 
 function unlock() {
