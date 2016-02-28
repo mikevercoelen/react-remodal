@@ -50,21 +50,26 @@ export default function Remodal (
     static defaultProps = {
       isOpen: false,
       overlayClosesModal: true,
-      closeOnEscape: true
+      closeOnEscape: true,
+      onClose: function () {}
     }
 
     listenKeyboard = (event) => {
-      if (this.props.closeOnEscape && (event.key === 'Escape' || event.keyCode === 27)) {
+      if (event.key === 'Escape' || event.keyCode === 27) {
         this.props.onClose()
       }
     }
 
     componentDidMount () {
-      window.addEventListener('keydown', this.listenKeyboard, true)
+      if (this.props.closeOnEscape) {
+        window.addEventListener('keydown', this.listenKeyboard, true)
+      }
     }
 
     componentWillUnmount () {
-      window.removeEventListener('keydown', this.listenKeyboard, true)
+      if (this.props.closeOnEscape) {
+        window.removeEventListener('keydown', this.listenKeyboard, true)
+      }
     }
 
     componentWillReceiveProps (nextProps) {
@@ -139,6 +144,9 @@ export default function Remodal (
               leaveActive: classes.dialogLeaveActive
             }}
             onClick={::this.handleClose}
+            style={{
+              cursor: (this.props.overlayClosesModal) ? 'pointer' : 'default'
+            }}
             className={classNames({
               [classes.wrap]: true,
               [classes.wrapIsOpen]: this.props.isOpen
