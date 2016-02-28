@@ -3,7 +3,6 @@ import browserSync from 'browser-sync'
 import watch from 'gulp-watch'
 import githubPages from 'gulp-gh-pages'
 import source from 'vinyl-source-stream'
-import buffer from 'vinyl-buffer'
 import gutil from 'gulp-util'
 import browserify from 'browserify'
 import babelify from 'babelify'
@@ -11,9 +10,13 @@ import babel from 'gulp-babel'
 import runSequence from 'run-sequence'
 import del from 'del'
 import combiner from 'stream-combiner2'
+import watchify from 'watchify'
+import sass from 'gulp-sass'
+import sassGlob from 'gulp-sass-glob'
 
-function getCombinerPipe (tasks) {
-  const combined = combiner.obj(tasks)
+function getPipe (tasks) {
+  let combined = combiner.obj(tasks)
+
   combined.on('error', function ({ message }) {
     gutil.log(gutil.colors.red('Error'), message)
     this.emit('end')
@@ -31,7 +34,7 @@ gulp.task('prepublish', (callback) => {
 })
 
 gulp.task('compile', () => {
-  return getCombinerPipe(
+  return getPipe(
     gulp.src('src/**/*.js'),
     babel(),
     gulp.dest('dist')
@@ -40,39 +43,61 @@ gulp.task('compile', () => {
 
 gulp.task('publish-github-pages', ['compile-example'], () => {
   return gulp
-    .src('./example/**/*')
+    .src('example/**/*')
     .pipe(githubPages())
 })
 
-gulp.task('compile-example', () => {
-  const bundler = browserify({
-    entries: [
-      'example/index.js'
-    ],
-    debug: true,
-    transform: [babelify]
-  })
+const bundler = watchify(browserify({
+  ...watchify.args,
+  entries: ['./example/scripts/index.js'],
+  debug: true,
+  transform: [babelify]
+}))
 
-  return getCombinerPipe(
-    bundler.bundle(),
-    source('bundle.js'),
-    buffer(),
-    gulp.dest('example')
-  )
+function bundle () {
+  return bundler.bundle()
+    .on('error', function ({ message }) {
+      gutil.log(gutil.colors.red('Error'), message)
+    })
+    .pipe(source('app.js'))
+    .pipe(gulp.dest('./example'))
+}
+
+gulp.task('compile-example:styles', () => {
+  return getPipe([
+    gulp.src('./example/styles/app.scss'),
+    sassGlob(),
+    sass().on('error', sass.logError),
+    gulp.dest('./example'),
+    browserSync.stream()
+  ])
 })
+
+gulp.task('compile-example:scripts', bundle)
+
+gulp.task('compile-example', ['compile-example:styles', 'compile-example:scripts'])
+
+bundler.on('update', bundle)
+bundler.on('log', gutil.log)
 
 gulp.task('watch', ['compile-example', 'server'], () => {
   watch([
     'src/**.js',
     'index.js',
-    'examples/**/*.js',
-    '!examples/**/bundle.js'
+    'example/scripts/**/*.js'
   ], () => {
-    gulp.start('compile-example')
+    gulp.start('compile-example:scripts')
   })
 
   watch([
-    'examples/**/bundle.js'
+    'example/styles/**/*.scss'
+  ], () => {
+    gulp.start('compile-example:styles')
+  })
+
+  watch([
+    'example/*.html',
+    'example/app.js'
   ], () => {
     browserSync.reload()
   })
