@@ -93,6 +93,7 @@
   height: 100%;
   width: 100%;
   z-index: 9999;
+  background-color: rgba(0, 0, 0, .65);
   -webkit-transform: translate3d(0, 0, 0);
           transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
