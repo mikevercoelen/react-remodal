@@ -46,7 +46,6 @@
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
           text-size-adjust: 100%;
-  cursor: default;
 }
 
 @media only screen and (min-width: 641px) {
@@ -91,10 +90,13 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.85);
   height: 100%;
   width: 100%;
   z-index: 9999;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
 }
 
 .react-remodal__overlay--enter {

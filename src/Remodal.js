@@ -19,10 +19,23 @@ const defaultClasses = {
   'wrapIsOpen': 'react-remodal__wrap--is-open'
 }
 
-export default function Remodal (classes = {}) {
-  classes = {
+const defaultTransitions = {
+  dialogEnterTimeout: 300,
+  dialogLeaveTimeout: 300,
+  overlayEnterTimeout: 300,
+  overlayLeaveTimeout: 300
+}
+
+export default function Remodal (
+  options = {}
+) {
+  const classes = {
     ...defaultClasses,
-    ...classes
+    ...options.classes
+  }
+
+  const transitions = {
+    ...defaultTransitions
   }
 
   return class Remodal extends Component {
@@ -32,13 +45,15 @@ export default function Remodal (classes = {}) {
       isOpen: PropTypes.bool,
       onClose: PropTypes.func,
       overlayClosesModal: PropTypes.bool,
-      closeOnEscape: PropTypes.bool
+      closeOnEscape: PropTypes.bool,
+      overlayBackground: PropTypes.string
     }
 
     static defaultProps = {
       isOpen: false,
-      overlayClosesModal: false,
-      closeOnEscape: true
+      overlayClosesModal: true,
+      closeOnEscape: true,
+      overlayBackground: 'rgba(0, 0, 0, .65)'
     }
 
     listenKeyboard = (event) => {
@@ -74,18 +89,39 @@ export default function Remodal (classes = {}) {
     }
 
     get dialog () {
-      return (this.props.isOpen) ? (
+      const {
+        isOpen,
+        children
+      } = this.props
+
+      return (isOpen) ? (
         <div
+          style={{
+            // overlay has pointer, set to default
+            // else dialog has pointer too.
+            cursor: 'default'
+          }}
           onClick={::this.handleDialogClick}
           className={classes.dialog}>
-          {this.props.children}
+          {children}
         </div>
       ) : null
     }
 
     get overlay () {
-      return (this.props.isOpen) ? (
-        <div className={classes.overlay} onClick={::this.handleClose} />
+      const {
+        isOpen,
+        overlayClosesModal,
+        overlayBackground
+      } = this.props
+
+      return (isOpen) ? (
+        <div
+          className={classes.overlay}
+          style={{
+            background: overlayBackground,
+            cursor: (overlayClosesModal) ? 'pointer' : 'default'
+          }} onClick={::this.handleClose} />
       ) : null
     }
 
@@ -119,8 +155,8 @@ export default function Remodal (classes = {}) {
               [classes.wrapIsOpen]: isOpen,
               [className]: className
             })}
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
+            transitionEnterTimeout={transitions.dialogEnterTimeout}
+            transitionLeaveTimeout={transitions.dialogLeaveTimeout}
             component='div'>
             {this.dialog}
           </TransitionPortal>
@@ -131,8 +167,8 @@ export default function Remodal (classes = {}) {
               leave: classes.overlayLeave,
               leaveActive: classes.overlayLeaveActive
             }}
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
+            transitionEnterTimeout={transitions.overlayEnterTimeout}
+            transitionLeaveTimeout={transitions.overlayLeaveTimeout}
             component='div'>
             {this.overlay}
           </TransitionPortal>

@@ -9,7 +9,12 @@ export function lock () {
   }
 
   const paddingRight = getScrollbarWidth(true)
-  document.body.setAttribute('style', `overflow: hidden; touch-action: none; padding-right: ${paddingRight}px;`)
+  document.body.setAttribute('style', `
+    overflow: hidden;
+    -ms-touch-action: none;
+    touch-action: none;
+    padding-right: ${paddingRight}px;
+  `)
 }
 
 export function unlock () {

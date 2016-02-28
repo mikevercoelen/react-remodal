@@ -21,7 +21,7 @@ class App extends Component {
         <button onClick={::this.toggleModal}>
           Open modal
         </button>
-        <Remodal isOpen={this.state.isModalOpen} onClose={::this.toggleModal} overlayClosesModal>
+        <Remodal isOpen={this.state.isModalOpen} onClose={::this.toggleModal}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
