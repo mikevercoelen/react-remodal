@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/tomgrooffer/react-remodal/issues"
   },
-  "homepage": "https://github.com/tomgrooffer/react-remodal#readme",
+  "homepage": "http://tomgrooffer.github.io/react-remodal/",
   "scripts": {
     "start": "gulp watch",
     "prepublish": "gulp prepublish"
