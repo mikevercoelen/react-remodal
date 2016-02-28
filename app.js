@@ -20343,11 +20343,7 @@ function Remodal() {
       value: function render() {
         var _classNames;
 
-        var _props = this.props;
-        var className = _props.className;
-        var isOpen = _props.isOpen;
-
-        var props = (0, _blacklist2.default)(this.props, 'overlayClosesModal', 'className', 'isOpen', 'onClose', 'width');
+        var props = (0, _blacklist2.default)(this.props, 'overlayClosesModal', 'isOpen', 'onClose', 'width');
 
         return _react2.default.createElement('div', null, _react2.default.createElement(_TransitionPortal2.default, _extends({}, props, {
           transitionName: {
@@ -20357,7 +20353,7 @@ function Remodal() {
             leaveActive: classes.dialogLeaveActive
           },
           onClick: this.handleClose.bind(this),
-          className: (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, classes.wrap, true), _defineProperty(_classNames, classes.wrapIsOpen, isOpen), _defineProperty(_classNames, className, className), _classNames)),
+          className: (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, classes.wrap, true), _defineProperty(_classNames, classes.wrapIsOpen, this.props.isOpen), _classNames)),
           transitionEnterTimeout: transitions.dialogEnterTimeout,
           transitionLeaveTimeout: transitions.dialogLeaveTimeout,
           component: 'div' }), this.dialog), _react2.default.createElement(_TransitionPortal2.default, {
@@ -20374,9 +20370,9 @@ function Remodal() {
     }, {
       key: 'dialog',
       get: function get() {
-        var _props2 = this.props;
-        var isOpen = _props2.isOpen;
-        var children = _props2.children;
+        var _props = this.props;
+        var isOpen = _props.isOpen;
+        var children = _props.children;
 
         return isOpen ? _react2.default.createElement('div', {
           style: {
@@ -20390,15 +20386,13 @@ function Remodal() {
     }, {
       key: 'overlay',
       get: function get() {
-        var _props3 = this.props;
-        var isOpen = _props3.isOpen;
-        var overlayClosesModal = _props3.overlayClosesModal;
-        var overlayBackground = _props3.overlayBackground;
+        var _props2 = this.props;
+        var isOpen = _props2.isOpen;
+        var overlayClosesModal = _props2.overlayClosesModal;
 
         return isOpen ? _react2.default.createElement('div', {
           className: classes.overlay,
           style: {
-            background: overlayBackground,
             cursor: overlayClosesModal ? 'pointer' : 'default'
           }, onClick: this.handleClose.bind(this) }) : null;
       }
@@ -20407,17 +20401,14 @@ function Remodal() {
     return Remodal;
   }(_react.Component), _class.propTypes = {
     children: _react.PropTypes.node.isRequired,
-    className: _react.PropTypes.string,
     isOpen: _react.PropTypes.bool,
     onClose: _react.PropTypes.func,
     overlayClosesModal: _react.PropTypes.bool,
-    closeOnEscape: _react.PropTypes.bool,
-    overlayBackground: _react.PropTypes.string
+    closeOnEscape: _react.PropTypes.bool
   }, _class.defaultProps = {
     isOpen: false,
     overlayClosesModal: true,
-    closeOnEscape: true,
-    overlayBackground: 'rgba(0, 0, 0, .65)'
+    closeOnEscape: true
   }, _temp2;
 }
 module.exports = exports['default'];
