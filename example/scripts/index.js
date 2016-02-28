@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import createRemodal from '../../'
+import createRemodal from '../../src/'
 
 const Remodal = createRemodal()
 
