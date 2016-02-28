@@ -5,21 +5,21 @@ import { lock, unlock } from './helpers/scrollLock'
 import TransitionPortal from './TransitionPortal'
 
 const defaultClasses = {
-  'dialog': 'dialog',
-  'dialog--large': 'dialog--large',
-  'dialog--medium': 'dialog--medium',
-  'dialog--small': 'dialog--small',
-  'dialogEnter': 'dialogEnter',
-  'dialogEnterActive': 'dialogEnterActive',
-  'dialogLeave': 'dialogLeave',
-  'dialogLeaveActive': 'dialogLeaveActive',
-  'overlayEnter': 'overlayEnter',
-  'overlayEnterActive': 'overlayEnterActive',
-  'overlayLeave': 'overlayLeave',
-  'overlayLeaveActive': 'overlayLeaveActive',
-  'wrap': 'wrap',
-  'isOpen': 'isOpen',
-  'overlay': 'overlay'
+  'dialog': 'react-remodal__dialog',
+  'dialog--large': 'react-remodal__dialog--large',
+  'dialog--medium': 'react-remodal__dialog--medium',
+  'dialog--small': 'react-remodal__dialog--small',
+  'dialogEnter': 'react-remodal__dialog--enter',
+  'dialogEnterActive': 'react-remodal__dialog--enter-active',
+  'dialogLeave': 'react-remodal__dialog--leave',
+  'dialogLeaveActive': 'react-remodal__dialog--leave-active',
+  'overlay': 'react-remodal__overlay',
+  'overlayEnter': 'react-remodal__overlay--enter',
+  'overlayEnterActive': 'react-remodal__overlay--enter-active',
+  'overlayLeave': 'react-remodal__overlay--leave',
+  'overlayLeaveActive': 'react-remodal__overlay--leave-active',
+  'wrap': 'react-remodal__wrap',
+  'wrapIsOpen': 'react-remodal__wrap--is-open'
 }
 
 export default function Remodal (classes = {}) {
@@ -128,7 +128,7 @@ export default function Remodal (classes = {}) {
             onClick={::this.handleClose}
             className={classNames({
               [classes.wrap]: true,
-              [classes.isOpen]: isOpen,
+              [classes.wrapIsOpen]: isOpen,
               [className]: className
             })}
             transitionEnterTimeout={300}

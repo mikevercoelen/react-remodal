@@ -1,4 +1,4 @@
-.wrap {
+.react-remodal__wrap {
   position: fixed;
   top: 0;
   right: 0;
@@ -19,7 +19,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.wrap:after {
+.react-remodal__wrap:after {
   vertical-align: middle;
   display: inline-block;
   height: 100%;
@@ -27,11 +27,11 @@
   content: '';
 }
 
-.isOpen {
+.react-remodal__wrap--is-open {
   visibility: visible;
 }
 
-.dialog {
+.react-remodal__dialog {
   position: relative;
   outline: 0;
   width: 100%;
@@ -50,24 +50,24 @@
 }
 
 @media (min-width: 768px) {
-  .dialog--small {
+  .react-remodal__dialog--small {
     width: 320px;
   }
-  .dialog--medium {
+  .react-remodal__dialog--medium {
     width: 640px;
   }
-  .dialog--large {
+  .react-remodal__dialog--large {
     width: 960px;
   }
 }
 
-.dialogEnter {
+.react-remodal__dialog--enter {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
   opacity: 0;
 }
 
-.dialogEnterActive {
+.react-remodal__dialog--enter-active {
   -webkit-transform: none;
           transform: none;
   opacity: 1;
@@ -76,13 +76,13 @@
   transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
 }
 
-.dialogLeave {
+.react-remodal__dialog--leave {
   -webkit-transform: scale(1);
           transform: scale(1);
   opacity: 1;
 }
 
-.dialogLeaveActive {
+.react-remodal__dialog--leave-active {
   -webkit-transform: scale(0.95);
           transform: scale(0.95);
   opacity: 0;
@@ -91,7 +91,7 @@
   transition: opacity 300ms ease-in, transform 300ms ease-in, -webkit-transform 300ms ease-in;
 }
 
-.overlay {
+.react-remodal__overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -103,20 +103,20 @@
   z-index: 9999;
 }
 
-.overlayEnter {
+.react-remodal__overlay--enter {
   opacity: 0;
 }
 
-.overlayEnterActive {
+.react-remodal__overlay--enter-active {
   opacity: 1;
   transition: opacity 300ms;
 }
 
-.overlayLeave {
+.react-remodal__overlay--leave {
   opacity: 1;
 }
 
-.overlayLeaveActive {
+.react-remodal__overlay--leave-active {
   opacity: 0;
   transition: opacity 300ms;
 }
