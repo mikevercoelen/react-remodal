@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-// import { TransitionPortal } from '../../'
+import { TransitionPortal } from '../../'
 
+console.log(TransitionPortal)
 
 class App extends Component {
   render () {

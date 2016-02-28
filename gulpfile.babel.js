@@ -10,6 +10,17 @@ import babelify from 'babelify'
 import babel from 'gulp-babel'
 import runSequence from 'run-sequence'
 import del from 'del'
+import combiner from 'stream-combiner2'
+
+function getCombinerPipe (tasks) {
+  const combined = combiner.obj(tasks)
+  combined.on('error', function ({ message }) {
+    gutil.log(gutil.colors.red('Error'), message)
+    this.emit('end')
+  })
+
+  return combined
+}
 
 gulp.task('clean', () => {
   return del(['dist'])
@@ -20,10 +31,11 @@ gulp.task('prepublish', (callback) => {
 })
 
 gulp.task('compile', () => {
-  return gulp
-    .src('src/**/*.js')
-    .pipe(babel())
-    .pipe(gulp.dest('dist'))
+  return getCombinerPipe(
+    gulp.src('src/**/*.js'),
+    babel(),
+    gulp.dest('dist')
+  )
 })
 
 gulp.task('publish-github-pages', ['compile-example'], () => {
@@ -41,12 +53,12 @@ gulp.task('compile-example', () => {
     transform: [babelify]
   })
 
-  return bundler
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .on('error', gutil.log)
-    .pipe(gulp.dest('example'))
+  return getCombinerPipe(
+    bundler.bundle(),
+    source('bundle.js'),
+    buffer(),
+    gulp.dest('example')
+  )
 })
 
 gulp.task('watch', ['compile-example', 'server'], () => {
