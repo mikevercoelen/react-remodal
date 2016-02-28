@@ -6,9 +6,6 @@ import TransitionPortal from './TransitionPortal'
 
 const defaultClasses = {
   'dialog': 'react-remodal__dialog',
-  'dialog--large': 'react-remodal__dialog--large',
-  'dialog--medium': 'react-remodal__dialog--medium',
-  'dialog--small': 'react-remodal__dialog--small',
   'dialogEnter': 'react-remodal__dialog--enter',
   'dialogEnterActive': 'react-remodal__dialog--enter-active',
   'dialogLeave': 'react-remodal__dialog--leave',
@@ -35,16 +32,10 @@ export default function Remodal (classes = {}) {
       isOpen: PropTypes.bool,
       onClose: PropTypes.func,
       overlayClosesModal: PropTypes.bool,
-      closeOnEscape: PropTypes.bool,
-      width: PropTypes.oneOf([
-        'small',
-        'medium',
-        'large'
-      ])
+      closeOnEscape: PropTypes.bool
     }
 
     static defaultProps = {
-      width: 'medium',
       isOpen: false,
       overlayClosesModal: false,
       closeOnEscape: true
@@ -86,10 +77,7 @@ export default function Remodal (classes = {}) {
       return (this.props.isOpen) ? (
         <div
           onClick={::this.handleDialogClick}
-          className={classNames({
-            [classes.dialog]: true,
-            [classes[`dialog--${this.props.width}`]]: true
-          })}>
+          className={classes.dialog}>
           {this.props.children}
         </div>
       ) : null

@@ -49,15 +49,9 @@
   cursor: default;
 }
 
-@media (min-width: 768px) {
-  .react-remodal__dialog--small {
-    width: 320px;
-  }
-  .react-remodal__dialog--medium {
-    width: 640px;
-  }
-  .react-remodal__dialog--large {
-    width: 960px;
+@media only screen and (min-width: 641px) {
+  .react-remodal__dialog {
+    max-width: 700px;
   }
 }
 
