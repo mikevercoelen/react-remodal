@@ -35,6 +35,7 @@ export default function Remodal (classes = {}) {
       isOpen: PropTypes.bool,
       onClose: PropTypes.func,
       overlayClosesModal: PropTypes.bool,
+      closeOnEscape: PropTypes.bool,
       width: PropTypes.oneOf([
         'small',
         'medium',
@@ -45,7 +46,22 @@ export default function Remodal (classes = {}) {
     static defaultProps = {
       width: 'medium',
       isOpen: false,
-      overlayClosesModal: false
+      overlayClosesModal: false,
+      closeOnEscape: true
+    }
+
+    listenKeyboard = (event) => {
+      if (this.props.closeOnEscape && (event.key === 'Escape' || event.keyCode === 27)) {
+        this.props.onClose()
+      }
+    }
+
+    componentDidMount () {
+      window.addEventListener('keydown', this.listenKeyboard, true)
+    }
+
+    componentWillUnmount () {
+      window.removeEventListener('keydown', this.listenKeyboard, true)
     }
 
     componentWillReceiveProps (nextProps) {
