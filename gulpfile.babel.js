@@ -37,11 +37,9 @@ gulp.task('prepublish', (callback) => {
 })
 
 gulp.task('compile', () => {
-  return getPipe(
-    gulp.src('src/**/*.js'),
-    babel(),
-    gulp.dest('dist')
-  )
+  return gulp.src('src/**/*.js')
+    .pipe(babel())
+    .pipe(gulp.dest('dist'))
 })
 
 gulp.task('publish-github-pages', ['compile-example:styles', 'compile-example:scripts'], () => {
