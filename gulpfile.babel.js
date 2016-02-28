@@ -33,7 +33,7 @@ gulp.task('clean', () => {
 })
 
 gulp.task('prepublish', (callback) => {
-  runSequence('clean', ['compile'], 'publish-github-pages', callback)
+  runSequence('clean', ['compile'], callback)
 })
 
 gulp.task('compile', () => {
@@ -44,7 +44,7 @@ gulp.task('compile', () => {
   )
 })
 
-gulp.task('publish-github-pages', ['compile-example'], () => {
+gulp.task('publish-github-pages', ['compile-example:styles', 'compile-example:scripts'], () => {
   return gulp
     .src('example/**/*')
     .pipe(githubPages())
@@ -89,12 +89,10 @@ gulp.task('compile-example:styles', () => {
 
 gulp.task('compile-example:scripts', bundle)
 
-gulp.task('compile-example', ['compile-example:styles', 'compile-example:scripts'])
-
 bundler.on('update', bundle)
 bundler.on('log', gutil.log)
 
-gulp.task('watch', ['compile-example', 'server'], () => {
+gulp.task('watch', ['compile-example:styles', 'compile-example:scripts', 'server'], () => {
   watch([
     'src/**.js',
     'index.js',
@@ -117,7 +115,7 @@ gulp.task('watch', ['compile-example', 'server'], () => {
   })
 })
 
-gulp.task('server', ['compile-example'], (callback) => {
+gulp.task('server', (callback) => {
   browserSync.init({
     server: {
       baseDir: './example'

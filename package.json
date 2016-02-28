@@ -26,6 +26,7 @@
   "scripts": {
     "start": "gulp watch",
     "prepublish": "gulp prepublish",
+    "gh-pages": "gulp publish-github-pages",
     "test": "NODE_ENV=test mocha --compilers js:babel-register --reporter dot --slow 1000 --full-trace --timeout 1500 --reporter spec --require test/support/helper.js test/**/*.spec.js"
   },
   "devDependencies": {
