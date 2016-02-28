@@ -1,15 +1,15 @@
 React Remodal  [![npm version](https://badge.fury.io/js/react-remodal.svg)](http://badge.fury.io/js/react-remodal)
 =====
 
+## Demo & Example
+
+[See the demo](http://tomgrooffer.github.io/react-remodal)
+
 ## Features
 
 - Animated
 - Customizable
 - Responsive
-
-## Demo & Example
-
-[See the demo](http://tomgrooffer.github.io/react-remodal)
 
 ## Installation
 
@@ -100,6 +100,13 @@ const Remodal = createRemodal({
 })
 ```
 
+## Props
+
+* isOpen - (bool) if the modal is open (default = false)
+* onClose - (function) callback on close
+* overlayClosesModal - (bool) if clicking on the overlay closes the modal (requires onClose)
+* closeOnEscape - (bool) if keyboard escape closes the modal (requires onClose)
+
 ## Recommendations
 
 It is recommended to add `overflow-y: scroll;` to your body css, this way
@@ -110,13 +117,6 @@ body {
   overflow-y: scroll;
 }
 ```
-
-## Props
-
-* isOpen - (bool) if the modal is open (default = false)
-* onClose - (function) callback on close
-* overlayClosesModal - (bool) if clicking on the overlay closes the modal (requires onClose)
-* closeOnEscape - (bool) if keyboard escape closes the modal (requires onClose)
 
 ## Development
 
