@@ -13,6 +13,9 @@ import combiner from 'stream-combiner2'
 import watchify from 'watchify'
 import sass from 'gulp-sass'
 import sassGlob from 'gulp-sass-glob'
+import sourcemaps from 'gulp-sourcemaps'
+import buffer from 'vinyl-buffer'
+import autoprefixer from 'gulp-autoprefixer'
 
 function getPipe (tasks) {
   let combined = combiner.obj(tasks)
@@ -60,14 +63,25 @@ function bundle () {
       gutil.log(gutil.colors.red('Error'), message)
     })
     .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./example'))
 }
 
 gulp.task('compile-example:styles', () => {
   return getPipe([
     gulp.src('./example/styles/app.scss'),
+    sourcemaps.init(),
     sassGlob(),
-    sass().on('error', sass.logError),
+    sass({
+      outputStyle: 'expanded'
+    }).on('error', sass.logError),
+    autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: true
+    }),
+    sourcemaps.write('./'),
     gulp.dest('./example'),
     browserSync.stream()
   ])
