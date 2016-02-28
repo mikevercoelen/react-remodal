@@ -7,6 +7,8 @@ export function lock () {
     return
   }
 
+  console.log(document.body.style.overflow)
+
   const paddingRight = getScrollbarWidth(true)
   document.body.setAttribute('style', `
     overflow: hidden;
