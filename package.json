@@ -1,9 +1,8 @@
 {
   "name": "react-remodal",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A better (animated, customizable, tested etc.) modal for React",
   "keywords": [
-    "react",
     "react-component",
     "react-modal",
     "react-remodal",
@@ -40,12 +39,10 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.5.2",
     "babelify": "^7.2.0",
-    "blacklist": "^1.1.2",
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "chai": "^3.5.0",
     "chai-enzyme": "^0.4.1",
-    "classnames": "^2.2.3",
     "del": "^2.2.0",
     "enzyme": "^2.0.0",
     "eslint": "^2.2.0",
@@ -65,11 +62,7 @@
     "gulp-watch": "^4.3.5",
     "mocha": "^2.4.5",
     "mocha-jsdom": "^1.1.0",
-    "react-addons-css-transition-group": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-portal-wrap": "^1.1.1",
     "run-sequence": "^1.1.5",
-    "scrollbar-width": "^3.1.1",
     "sinon": "^1.17.3",
     "stream-combiner2": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
@@ -80,5 +73,14 @@
     "transform": [
       "babelify"
     ]
+  },
+  "dependencies": {
+    "react": "^0.14.7",
+    "blacklist": "^1.1.2",
+    "scrollbar-width": "^3.1.1",
+    "react-dom": "^0.14.7",
+    "react-portal-wrap": "^1.1.1",
+    "react-addons-css-transition-group": "^0.14.7",
+    "classnames": "^2.2.3"
   }
 }
