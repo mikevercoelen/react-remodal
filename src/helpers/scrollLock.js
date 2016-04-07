@@ -1,5 +1,6 @@
 import getScrollbarWidth from 'scrollbar-width'
 
+let navigator = navigator || { platform: 'unknown' }
 const IS_IOS = /iPad|iPhone|iPod/.test(navigator.platform)
 
 export function lock () {
